@@ -1,34 +1,42 @@
-// import PropTypes from 'prop-types';
-import './ContactList.module.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectVisibleContacts } from 'redux/selectors'; 
-import { deleteContact } from 'redux/contactsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteContact } from '../../redux/operations';
+import { getContacts, getFilter } from '../../redux/selectors';
+import css from './ContactList.module.css';
 
-export const ContactList = () => { 
-  const contacts = useSelector(selectVisibleContacts);
+const getVisibleContacts = (contacts, filter) => {
+  if (!filter) {
+    return contacts;
+  } else {
+    return contacts.filter(contact => {
+      return contact.name.toLowerCase().includes(filter.toLowerCase());
+    });
+  }
+};
+
+export const ContactList = () => {
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
+  const visibleContacts = getVisibleContacts(contacts, filter);
+
   const dispatch = useDispatch();
+  const handleDelete = id => dispatch(deleteContact(id));
+
   return (
-    <ul>
-      {contacts.map(({ id, name, number }) => {
-        return (
-          <li key={id}>
-            <p>
-              {name}: {number}
-            </p>
-            <button type="button" onClick={() => dispatch(deleteContact(id))}>
+    <div className={css.wraperContactList}>
+      <ul className={css.contactList}>
+        {visibleContacts.map((contact, id) => (
+          <li key={id} className={css.contactListItem}>
+            {contact.name}: {contact.phone}
+            <button
+              type="button"
+             
+              onClick={() => handleDelete(contact.id)}
+            >
               Delete
             </button>
           </li>
-        );
-      })}
-    </ul>
+        ))}
+      </ul>
+    </div>
   );
 };
-
-// ContactList.propTypes = {
-//   contacts: PropTypes.array,
-//   name: PropTypes.string,
-//   number: PropTypes.string,
-//   id: PropTypes.string,
-//   deleteContact: PropTypes.func,
-// };
