@@ -22,8 +22,8 @@ export const ContactList = () => {
   const handleDelete = id => dispatch(deleteContact(id));
 
   return (
-    <div className={css.wraperContactList}>
-      <ul className={css.contactList}>
+    <div>
+      <ul>
         {visibleContacts.map((contact, id) => (
           <li key={id} className={css.contactListItem}>
             {contact.name}: {contact.phone}

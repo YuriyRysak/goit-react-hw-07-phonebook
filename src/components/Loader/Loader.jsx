@@ -8,8 +8,8 @@ export const Loader = () => (
   <div className={css.loader}>    
       <RotatingTriangles
         visible={true}
-        height="180"
-        width="180 "
+        height="100"
+        width="100 "
         ariaLabel="rotating-triangels-loading"
         wrapperStyle={{}}
         wrapperClass="rotating-triangels-wrapper"

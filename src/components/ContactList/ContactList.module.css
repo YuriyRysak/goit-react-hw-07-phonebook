@@ -28,6 +28,7 @@ ul {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 15px;
   }
   
   p {
@@ -45,6 +46,7 @@ ul {
     cursor: pointer;
     border-radius: 1px;
     transition-duration: 400ms;
+    margin-left: 10px;
   }
   
   li > button:hover {
